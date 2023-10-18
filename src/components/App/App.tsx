@@ -1,11 +1,10 @@
-import Input from 'antd/es/input/Input';
 import React from 'react';
-import Search from '../Search/Search';
+import {Main} from '../main/main';
 
 function App() {
   return (
     <>
-      <Search />
+      <Main />
     </>
   );
 }
