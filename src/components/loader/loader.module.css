@@ -1,10 +1,4 @@
-.loader_container {
-  margin: 0 auto;
-  width: 100%;
-  position: relative;
-}
-
-.loader {
+.__content {
   width: 1em;
   height: 1em;
   margin: 25px auto;
@@ -12,7 +6,7 @@
   display: block;
 }
 
-.loader i::after {
+.__content i::after {
   position: absolute;
   clip: rect(0, 2em, 1em, 0.5em);
   width: 2em;

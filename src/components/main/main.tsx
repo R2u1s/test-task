@@ -8,7 +8,7 @@ export const Main: React.FC = () => {
   const [resultIsActive, setResultIsActive] = React.useState<boolean>(false); //состояние, описывающее надо ли показывать результат
 
   return (
-    <main className={`${styles.main}`}>
+    <main className={`${styles['_content']}`}>
       <Head setResultIsActive={setResultIsActive} />
       {resultIsActive && <Result />}
     </main>

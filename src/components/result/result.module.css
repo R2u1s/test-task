@@ -1,4 +1,22 @@
-.result {
-  margin: 0;
-  width: 100%;
+._content {
+  margin:15px auto 0;
+  max-width: 1280px;
+  min-width: 320px;
+  text-align: center;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  gap:15px;
+}
+
+._cardsList {
+  margin:0;
+  padding: 0;
+  width:100%;
+  display: grid;
+  list-style-type: none;
+  grid-template-columns: repeat(auto-fit, var(--card-width));
+  justify-content: center;
+  align-content: start;
+  gap: 35px;
 }

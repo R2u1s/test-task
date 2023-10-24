@@ -1,0 +1,42 @@
+._content {
+  margin: 0;
+  padding: 15px;
+  box-sizing: border-box;
+  width: var(--card-width);
+  height: var(--card-height);
+  background-color: rgb(243,242,241);
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  gap:5px;
+}
+
+._picture {
+  margin: 0;
+  margin-bottom: 20px;
+  content:'';
+  width: 100%;
+  box-sizing: border-box;
+  box-shadow: 15px 15px 30px rgb(121, 121, 121);
+}
+
+._picture-padding {
+  padding: 10px 50px;
+}
+
+._category {
+  margin: 0;
+  text-align: start;
+}
+
+._title {
+  margin: 0;
+  text-align: start;
+}
+
+._authors {
+  margin: 0;
+  text-align: start;
+}
+
+

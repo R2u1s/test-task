@@ -10,7 +10,7 @@ export const Head: React.FC<{
   const { Search } = Input;
 
   const [searchIsActive, setSearchIsActive] = React.useState<boolean>(false); //состояние, описывающее была ли нажата кнопка поиска
-  const classHead = searchIsActive ? `${styles['head']} ${styles['head_height_reduced']}` : `${styles['head']}`; //если поиск активен скукоживаем высоту
+  const classHead = searchIsActive ? `${styles['head']} ${styles['height_reduced']}` : `${styles['head']}`; //если поиск активен скукоживаем высоту
 
   const onSearchClick = () => {
     setSearchIsActive(true); // сначала активируем сдвиг головной части сайта
@@ -21,13 +21,13 @@ export const Head: React.FC<{
   
   return (
     <section className={classHead}>
-      <div className={`${styles['head__overlay']}`}>
-        <div className={`${styles['head__content']}`}>
-          <h1 className={`${styles['head__title']}`}>Book Search</h1>
-          <Search className={`${styles['head__search']}`} placeholder="Enter book name" onSearch={onSearchClick} />
-          <div className={`${styles['head__filter']}`}>
+      <div className={`${styles['_overlay']}`}>
+        <div className={`${styles['_content']}`}>
+          <h1 className={`${styles['_title']}`}>Book Search</h1>
+          <Search className={`${styles['_search']}`} placeholder="Enter book name" onSearch={onSearchClick} />
+          <div className={`${styles['_filter']}`}>
             <Select
-              className={`${styles['head__sort']}`}
+              className={`${styles['_sort']}`}
               placeholder="Filter"
               allowClear
               options={[
@@ -37,7 +37,7 @@ export const Head: React.FC<{
               ]}
             />
             <Select
-              className={`${styles['head__sort']}`}
+              className={`${styles['_sort']}`}
               placeholder="Sort"
               allowClear
               options={[

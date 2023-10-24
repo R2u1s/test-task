@@ -6,9 +6,102 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  margin: 0;
+  color: var(--text-color-primary);
+  background: var(--background);
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+:root {
+  --background: #fff;
+  --offset-base-size: 2px;
+
+  --common-border-radius: 14px;
+
+  --text-color-primary: #292929;
+  --text-color-secondary: #fff;
+
+  --text-color-h1: white;
+  --text-color-black: #000;
+  --text-color-gray: #a8a8a8;
+  --text-input-placeholder: #7a7a7a;
+
+  --bg-input-hover: #fafafa;
+  --bg-input-disabled: #ebebeb;
+
+  --bg-button-default: #85cfff;
+  --bg-button-hover: #5cbfff;
+  --bg-button-active: #1fa7ff;
+  --bg-button-disabled: #e0e0e0;
+
+  --default-color: #0032ff;
+  --changing-color: #d252e1;
+  --modified-color: #7fe051;
+
+  --common-transition: all 0.3s ease-in;
+
+  --card-width: 230px;
+  --card-height: 370px;
+}
+
+@-moz-document url-prefix() {
+  :root {
+    scrollbar-color: var(--scrollbar-color);
+  }
+}
+
+/* Typography classes */
+
+.text {
+  margin: 0;
+  padding: 0;
+}
+
+.text_color_h1 {
+  color: var(--text-color-h1);
+}
+
+.text_color_black {
+  color: var(--text-color-black);
+}
+
+.text_color_gray {
+  color: var(--text-color-gray);
+}
+
+.text_type_default {
+	font-family: 'Segoe UI';
+	font-size: 16px;
+	line-height: 1.5;
+	font-weight: normal;
+}
+
+.text_type_bold {
+	font-family: 'Segoe UI';
+	font-size: 16px;
+	font-weight: bold;
+	line-height: 1.1;
+}
+
+.text_type_underline {
+	font-family: 'Segoe UI';
+	font-size: 16px;
+	line-height: 1.1;
+  text-decoration: underline;
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
