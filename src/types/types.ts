@@ -1,3 +1,7 @@
+import { store } from '../index';
+import { ThunkAction } from 'redux-thunk';
+import { Action, ActionCreator, Dispatch } from 'redux';
+
 export type TBookCommon = {
   [key: string]: string | string[] | object[] | object;
 }
@@ -18,3 +22,13 @@ export type TBookInfo = TBookCommon & {
     [key: string]: string | string[] | object[] | object | number;
   };
 }
+
+export type RootState = ReturnType<typeof store.getState>;
+
+/* // Типизация thunk
+export type AppThunk<TReturn = void> = ActionCreator<
+  ThunkAction<TReturn, Action, RootState, TApplicationActions>
+>; */
+
+// Типизация метода dispatch для проверки на валидность отправляемого экшена
+export type AppDispatch = typeof store.dispatch;
