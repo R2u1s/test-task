@@ -1,6 +1,6 @@
 import { SEARCH_REQUEST,SEARCH_SUCCESS,SEARCH_FAILED } from "../actions/books";
 
-type TSearchState = {
+export type TSearchState = {
   books:Object[],
   qty:number
   searchRequest: boolean,
