@@ -1,7 +1,6 @@
 import React from 'react';
 import styles from './result.module.css';
 import { useSelector, useDispatch } from '../../services/hooks';
-import { DELAY_RESULT_SHOW } from '../../constants/delays';
 import { Loader } from '../loader/loader';
 import { Card } from '../card/card';
 
