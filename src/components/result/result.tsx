@@ -11,7 +11,9 @@ export const Result: React.FC = () => {
   const [loaderState, setLoaderState] = React.useState<boolean>(true); //состояние, описывающее надо ли показывать лоадер, потом заменить на стэйт из хранилища
 
   const { books } = useSelector((store) => ({
-    books: store.books
+    books: store.books,
+    searchRequest: store.books.searchRequest,
+    searchFailed: store.books.searchFailed,
   }));
 
   setTimeout(() => {       // задержка для работы лоадера
@@ -22,7 +24,7 @@ export const Result: React.FC = () => {
     <>
       <section className={`${styles['_content']}`}>
 
-        {loaderState ? <Loader /> :  //если поиск удачный, то показываем его, иначе крутим лоадер (сейчас заглушка)
+        {books.searchRequest ? <Loader /> :  //если поиск удачный, то показываем его, иначе крутим лоадер (сейчас заглушка)
           <>
             <p className={'text text_type_bold text_color_black'}>Found {books.qty} results</p>
             <ul className={`${styles['_cardsList']}`}>

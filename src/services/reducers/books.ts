@@ -3,7 +3,6 @@ import { SEARCH_REQUEST,SEARCH_SUCCESS,SEARCH_FAILED } from "../actions/books";
 type TSearchState = {
   books:Object[],
   qty:number
-
   searchRequest: boolean,
   searchFailed: boolean,
 };
@@ -11,7 +10,6 @@ type TSearchState = {
 const initialState: TSearchState = {
   books:[],
   qty:0,
-
   searchRequest: false,
   searchFailed: false,
 };
