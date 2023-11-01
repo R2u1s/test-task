@@ -13,15 +13,20 @@
 
 ._picture {
   margin: 0;
-  margin-bottom: 20px;
+  height: fit-content;
   content:'';
-  width: 100%;
   box-sizing: border-box;
-  box-shadow: 15px 15px 30px rgb(121, 121, 121);
+  box-shadow: 5px 5px 20px rgb(110, 110, 110);
 }
 
 ._picture-padding {
-  padding: 10px 50px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  aspect-ratio: 1;
 }
 
 ._category {

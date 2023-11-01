@@ -24,7 +24,6 @@ export const search = (value:string) => {
     })
       .then(res => {
         if (res && res.success) {
-          console.log(res);
           dispatch({
             type: SEARCH_SUCCESS,
             data: res

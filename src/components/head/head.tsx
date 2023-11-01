@@ -18,7 +18,7 @@ export const Head: React.FC<{setResultIsActive:(value: boolean)=>void}> = ({setR
 
   const onSearchClick = () => {
     setSearchIsActive(true); // сначала активируем сдвиг головной части сайта
-    dispatch(search(valueInput));
+    dispatch(search(valueInput)); // отправляем экшн с запросом к серверу
     setTimeout(() => {       // а потом с задержкой отображаем резульатат, иначе будет появляться скролл на мгновение, ведь головная часть занимает всю высоту окна сначала, а результат под ней
       setResultIsActive(true);
     }, DELAY_RESULT_SHOW);
