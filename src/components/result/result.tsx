@@ -18,7 +18,7 @@ export const Result: React.FC = () => {
       <section className={`${styles['_content']}`}>
 
         {store.searchRequest ? <Loader /> :  //если поиск удачный, то показываем его, иначе крутим лоадер
-          store.searchFailed ? 'Не удалось связаться с сервером' :
+          store.searchFailed ? 'Ошибка соединения с сервером' :
           <>
             <p className={'text text_type_bold text_color_black'}>Found {store.qty} results</p>
             <ul className={`${styles['_cardsList']}`}>
