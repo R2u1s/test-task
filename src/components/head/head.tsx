@@ -5,25 +5,27 @@ import styles from './head.module.css';
 import { DELAY_RESULT_SHOW } from '../../constants/delays';
 import { search } from '../../services/actions/books';
 
-export const Head: React.FC<{setResultIsActive:(value: boolean)=>void}> = ({setResultIsActive}) => {
+export const Head: React.FC<{ setResultIsActive: (value: boolean) => void }> = ({ setResultIsActive }) => {
 
   const { Search } = Input;
 
   const dispatch = useDispatch();
 
-  const [valueInput,setValueInput] = React.useState<string>(''); //состояние для работы инпута
+  const [valueInput, setValueInput] = React.useState<string>(''); //состояние для работы инпута
 
   const [searchIsActive, setSearchIsActive] = React.useState<boolean>(false); //состояние, описывающее была ли нажата кнопка поиска
   const classHead = searchIsActive ? `${styles['head']} ${styles['height_reduced']}` : `${styles['head']}`; //если поиск активен скукоживаем высоту
 
   const onSearchClick = () => {
-    setSearchIsActive(true); // сначала активируем сдвиг головной части сайта
-    dispatch(search(valueInput)); // отправляем экшн с запросом к серверу
-    setTimeout(() => {       // а потом с задержкой отображаем резульатат, иначе будет появляться скролл на мгновение, ведь головная часть занимает всю высоту окна сначала, а результат под ней
-      setResultIsActive(true);
-    }, DELAY_RESULT_SHOW);
+    if (valueInput !== '') {   // если строка пустая, то нажатие на кнопку поиска ничего не запускает
+      setSearchIsActive(true); // сначала активируем сдвиг головной части сайта
+      dispatch(search(valueInput)); // отправляем экшн с запросом к серверу
+      setTimeout(() => {       // а потом с задержкой отображаем резульатат, иначе будет появляться скролл на мгновение, ведь головная часть занимает всю высоту окна сначала, а результат под ней
+        setResultIsActive(true);
+      }, DELAY_RESULT_SHOW);
+    }
   };
-  
+
   return (
     <section className={classHead}>
       <div className={`${styles['_overlay']}`}>

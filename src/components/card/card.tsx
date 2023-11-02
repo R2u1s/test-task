@@ -4,7 +4,8 @@ import { TBookInfo } from '../../types/types';
 
 export const Card: React.FC<{ book: TBookInfo }> = ({ book }) => {
 
-  const categories =book.volumeInfo?.categories ? book.volumeInfo?.categories.join(', ') : 'Категории не заданы';
+  const picture = book.volumeInfo?.imageLinks?.smallThumbnail ? book.volumeInfo?.imageLinks?.smallThumbnail : 'Нет изображения';
+  const categories = book.volumeInfo?.categories ? book.volumeInfo?.categories.join(', ') : 'Категории не заданы';
   const title = book.volumeInfo?.title ? book.volumeInfo?.title : 'Нет названия';
   const authors = book.volumeInfo?.authors ? book.volumeInfo?.authors.join(', ') : 'Авторы не найдены';
 
@@ -12,7 +13,7 @@ export const Card: React.FC<{ book: TBookInfo }> = ({ book }) => {
     <>
       <div className={`${styles['_content']}`}>
         <div className={`${styles['_picture-padding']}`}>
-          <img src={book.volumeInfo?.imageLinks.smallThumbnail} className={`${styles['_picture']}`} />
+          <img src={picture} className={`${styles['_picture']}`} />
         </div>
         <div className={`${styles['_category']}`}>
           <p className={'text text_type_underline text_color_gray text_overflow_one'}>{categories}</p>
