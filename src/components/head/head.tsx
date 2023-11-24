@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from '../../services/hooks';
 import { Input, Select } from 'antd';
 import styles from './head.module.css';
 import { DELAY_RESULT_SHOW } from '../../constants/delays';
-import { search } from '../../services/actions/books';
+import { firstSearch } from '../../services/actions/books';
 
 export const Head: React.FC<{ setResultIsActive: (value: boolean) => void }> = ({ setResultIsActive }) => {
 
@@ -18,8 +18,9 @@ export const Head: React.FC<{ setResultIsActive: (value: boolean) => void }> = (
 
   const onSearchClick = () => {
     if (valueInput !== '') {   // если строка пустая, то нажатие на кнопку поиска ничего не запускает
+      setSearchIsActive(false); // сначала активируем сдвиг головной части сайта
       setSearchIsActive(true); // сначала активируем сдвиг головной части сайта
-      dispatch(search(valueInput)); // отправляем экшн с запросом к серверу
+      dispatch(firstSearch(valueInput)); // отправляем экшн с запросом к серверу
       setTimeout(() => {       // а потом с задержкой отображаем резульатат, иначе будет появляться скролл на мгновение, ведь головная часть занимает всю высоту окна сначала, а результат под ней
         setResultIsActive(true);
       }, DELAY_RESULT_SHOW);
@@ -35,7 +36,7 @@ export const Head: React.FC<{ setResultIsActive: (value: boolean) => void }> = (
           <div className={`${styles['_filter']}`}>
             <Select
               className={`${styles['_sort']}`}
-              placeholder="Filter"
+              placeholder="Categories"
               allowClear
               options={[
                 { value: 'abc', label: 'Abc' },

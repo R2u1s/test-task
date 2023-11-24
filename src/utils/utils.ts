@@ -32,9 +32,19 @@ const checkSuccess = (res:any) => {
 
 // создаем универсальную фукнцию запроса с проверкой ответа и `success`
 // В вызов приходит `endpoint`(часть урла, которая идет после базового) и опции
-export const request = <T>(endpoint:string,options?:{}) => {
+export const request = <T>(endpoint:string) => {
   // а также в ней базовый урл сразу прописывается, чтобы не дублировать в каждом запросе
-  return fetch(`${BASE_URL}${endpoint}`,options)
+  return fetch(`${BASE_URL}${endpoint}`,{
+    method: 'GET',
+    mode: 'cors',
+    cache: 'no-cache',
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    redirect: 'follow',
+    referrerPolicy: 'no-referrer'
+  })
     .then(checkResponse)
     .then(checkSuccess);
 };

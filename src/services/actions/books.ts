@@ -1,42 +1,65 @@
 import { MY_API_KEY } from "../../constants/api";
 import { AppDispatch } from "../../types/types";
 import { request } from "../../utils/utils";
+import { PAGINATION_QTY } from "../../constants/api";
 
-export const SEARCH_REQUEST: 'SEARCH_REQUEST' = 'SEARCH_REQUEST';
-export const SEARCH_SUCCESS: 'SEARCH_SUCCESS' = 'SEARCH_SUCCESS';
-export const SEARCH_FAILED: 'SEARCH_FAILED' = 'SEARCH_FAILED';
+export const FIRST_SEARCH_REQUEST: 'FIRST_SEARCH_REQUEST' = 'FIRST_SEARCH_REQUEST';
+export const FIRST_SEARCH_SUCCESS: 'FIRST_SEARCH_SUCCESS' = 'FIRST_SEARCH_SUCCESS';
+export const FIRST_SEARCH_FAILED: 'FIRST_SEARCH_FAILED' = 'FIRST_SEARCH_FAILED';
 
-export const search = (value:string) => {
+export const NEXT_SEARCH_REQUEST: 'NEXT_SEARCH_REQUEST' = 'NEXT_SEARCH_REQUEST';
+export const NEXT_SEARCH_SUCCESS: 'NEXT_SEARCH_SUCCESS' = 'NEXT_SEARCH_SUCCESS';
+export const NEXT_SEARCH_FAILED: 'NEXT_SEARCH_FAILED' = 'NEXT_SEARCH_FAILED';
+
+export const firstSearch = (value:string) => {
   return function (dispatch:AppDispatch) {
     dispatch({
-      type: SEARCH_REQUEST
+      type: FIRST_SEARCH_REQUEST
     });
-    request(`${value}&key=${MY_API_KEY}`, {
-      method: 'GET',
-      mode: 'cors',
-      cache: 'no-cache',
-      credentials: 'same-origin',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      redirect: 'follow',
-      referrerPolicy: 'no-referrer'
-    })
+    request(`${value}&key=${MY_API_KEY}&startIndex=0&maxResults=${PAGINATION_QTY}`)
       .then(res => {
         if (res && res.success) {
           dispatch({
-            type: SEARCH_SUCCESS,
-            data: res
+            type: FIRST_SEARCH_SUCCESS,
+            data: res,
+            text: value
           });
         } else {
           dispatch({
-            type: SEARCH_FAILED
+            type: FIRST_SEARCH_FAILED
           });
         }
       })
       .catch(error => {
         dispatch({
-          type: SEARCH_FAILED
+          type: FIRST_SEARCH_FAILED
+        });
+        console.log(error);
+      });
+  };
+}
+
+export const nextSearch = (value:string,startIndex:number,qty:number) => {
+  return function (dispatch:AppDispatch) {
+    dispatch({
+      type: NEXT_SEARCH_REQUEST
+    });
+    request(`${value}&key=${MY_API_KEY}&startIndex=${startIndex}&maxResults=${qty}`)
+      .then(res => {
+        if (res && res.success) {
+          dispatch({
+            type: NEXT_SEARCH_SUCCESS,
+            data: res
+          });
+        } else {
+          dispatch({
+            type: NEXT_SEARCH_FAILED
+          });
+        }
+      })
+      .catch(error => {
+        dispatch({
+          type: NEXT_SEARCH_FAILED
         });
         console.log(error);
       });

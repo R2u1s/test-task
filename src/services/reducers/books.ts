@@ -1,44 +1,82 @@
-import { SEARCH_REQUEST,SEARCH_SUCCESS,SEARCH_FAILED } from "../actions/books";
+import { 
+  FIRST_SEARCH_REQUEST,
+  FIRST_SEARCH_SUCCESS,
+  FIRST_SEARCH_FAILED,
+  NEXT_SEARCH_REQUEST,
+  NEXT_SEARCH_SUCCESS,
+  NEXT_SEARCH_FAILED
+ } from "../actions/books";
 
 export type TSearchState = {
+  searchText: string,
   books:Object[],
   qty:number
-  searchRequest: boolean,
-  searchFailed: boolean,
+  firstSearchRequest: boolean,
+  firstSearchFailed: boolean,
+  nextSearchRequest: boolean,
+  nextSearchFailed: boolean,
 };
 
 const initialState: TSearchState = {
+  searchText:'',
   books:[],
   qty:0,
-  searchRequest: false,
-  searchFailed: false,
+  firstSearchRequest: false,
+  firstSearchFailed: false,
+  nextSearchRequest:false,
+  nextSearchFailed: false,
 };
 
 export const booksReducer = (state = initialState, action:any):any => {
   
   switch (action.type) {
 
-    case SEARCH_REQUEST: {
+    case FIRST_SEARCH_REQUEST: {
       return {
         ...state,
-        searchRequest: true
+        firstSearchRequest: true
       };
     }
-    case SEARCH_SUCCESS: {
+    case FIRST_SEARCH_SUCCESS: {
+      console.log(action.data);
       return {
         ...state,
+        searchText:action.text,
         books:action.data.items,
         qty:action.data.totalItems,
         
-        searchFailed: false,
-        searchRequest: false
+        firstSearchFailed: false,
+        firstSearchRequest: false
       };
     }
-    case SEARCH_FAILED: {
+    case FIRST_SEARCH_FAILED: {
       return {
         ...state,
-        searchFailed: true,
-        searchRequest: false
+        firstSearchFailed: true,
+        firstSearchRequest: false
+      };
+    }
+    case NEXT_SEARCH_REQUEST: {
+      return {
+        ...state,
+        nextSearchRequest: true
+      };
+    }
+    case NEXT_SEARCH_SUCCESS: {
+      console.log(action.data);
+      return {
+        ...state,
+        books:[...state.books,...action.data.items],
+        
+        nextSearchFailed: false,
+        nextSearchRequest: false
+      };
+    }
+    case NEXT_SEARCH_FAILED: {
+      return {
+        ...state,
+        nextSearchFailed: true,
+        nextSearchRequest: false
       };
     }
     default: {

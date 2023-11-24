@@ -118,6 +118,10 @@ code {
   text-decoration: underline;
 }
 
+.text_link {
+  cursor: pointer;
+}
+
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none; /* Safari */
