@@ -11,7 +11,7 @@ export const NEXT_SEARCH_REQUEST: 'NEXT_SEARCH_REQUEST' = 'NEXT_SEARCH_REQUEST';
 export const NEXT_SEARCH_SUCCESS: 'NEXT_SEARCH_SUCCESS' = 'NEXT_SEARCH_SUCCESS';
 export const NEXT_SEARCH_FAILED: 'NEXT_SEARCH_FAILED' = 'NEXT_SEARCH_FAILED';
 
-export const firstSearch = (value:string) => {
+export const firstSearch = (value:string) => { //первый запрос к серверу. Загружаем в хранилище первые книги
   return function (dispatch:AppDispatch) {
     dispatch({
       type: FIRST_SEARCH_REQUEST
@@ -39,7 +39,8 @@ export const firstSearch = (value:string) => {
   };
 }
 
-export const nextSearch = (value:string,startIndex:number,qty:number) => {
+//последующие запросы к серверу с пагинацией. Добавляем новые книги к существующим
+export const nextSearch = (value:string,startIndex:number,qty:number) => { 
   return function (dispatch:AppDispatch) {
     dispatch({
       type: NEXT_SEARCH_REQUEST
