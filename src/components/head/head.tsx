@@ -1,11 +1,19 @@
 import React from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from '../../services/hooks';
 import { Input, Select } from 'antd';
 import styles from './head.module.css';
 import { DELAY_RESULT_SHOW } from '../../constants/delays';
 import { firstSearch } from '../../services/actions/books';
+import { FilterStates, SortStates } from '../../types/enums';
 
-export const Head: React.FC<{ setResultIsActive: (value: boolean) => void }> = ({ setResultIsActive }) => {
+export const Head: React.FC<{ 
+  setResultIsActive: (value: boolean) => void,
+  setFilter: (value:FilterStates)=>void,
+  setSort: (value:SortStates)=>void,
+  sort: string,
+  filter: string
+}> = ({ setResultIsActive, setFilter, setSort, sort, filter }) => {
 
   const { Search } = Input;
 
@@ -20,7 +28,7 @@ export const Head: React.FC<{ setResultIsActive: (value: boolean) => void }> = (
     if (valueInput !== '') {   // если строка пустая, то нажатие на кнопку поиска ничего не запускает
       setSearchIsActive(false); // сначала активируем сдвиг головной части сайта
       setSearchIsActive(true); // сначала активируем сдвиг головной части сайта
-      dispatch(firstSearch(valueInput)); // отправляем экшн с запросом к серверу
+      dispatch(firstSearch(valueInput,sort,filter)); // отправляем экшн с запросом к серверу
       setTimeout(() => {       // а потом с задержкой отображаем резульатат, иначе будет появляться скролл на мгновение, ведь головная часть занимает всю высоту окна сначала, а результат под ней
         setResultIsActive(true);
       }, DELAY_RESULT_SHOW);
@@ -37,22 +45,15 @@ export const Head: React.FC<{ setResultIsActive: (value: boolean) => void }> = (
             <Select
               className={`${styles['_sort']}`}
               placeholder="Categories"
-              allowClear
-              options={[
-                { value: 'abc', label: 'Abc' },
-                { value: 'def', label: 'Def' },
-                { value: 'klm', label: 'Klm' }
-              ]}
+              options={Object.keys(FilterStates).map((item)=>{return { value: Object(FilterStates)[item], label: Object(FilterStates)[item] }})}
+              onChange={setFilter}
             />
             <Select
               className={`${styles['_sort']}`}
               placeholder="Sort"
               allowClear
-              options={[
-                { value: 'abc', label: 'Abc' },
-                { value: 'def', label: 'Def' },
-                { value: 'klm', label: 'Klm' }
-              ]}
+              options={Object.keys(SortStates).map((item)=>{return { value: Object(SortStates)[item], label: Object(SortStates)[item] }})}
+              onChange={setSort}
             />
           </div>
         </div>

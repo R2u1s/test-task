@@ -3,10 +3,14 @@ import styles from './result.module.css';
 import { useSelector, useDispatch } from '../../services/hooks';
 import { Loader } from '../loader/loader';
 import { Card } from '../card/card';
-import { nextSearch } from '../../services/actions/books';
+import { firstSearch, nextSearch } from '../../services/actions/books';
 import { PAGINATION_QTY } from '../../constants/api';
+import { FilterStates, SortStates } from '../../types/enums';
 
-export const Result: React.FC = () => {
+export const Result: React.FC<{ 
+  filter: FilterStates,
+  sort: SortStates,
+}> = ({ filter,sort }) => {
 
   const dispatch = useDispatch();
 
@@ -22,11 +26,27 @@ export const Result: React.FC = () => {
 
   const onLoadMoreClick = () => {
     if (true) {   // если 
-      dispatch(nextSearch(store.searchText, store.books.length, // отправляем экшн с запросом к серверу. Тот же текст запроса берем из стора
+      dispatch(nextSearch(
+        store.searchText,
+        sort,
+        filter, 
+        store.books.length, // отправляем экшн с запросом к серверу. Тот же текст запроса берем из стора
         store.qty - store.books.length < PAGINATION_QTY ?       // два числа указываем для реализации пагинации
-        store.qty - store.books.length : PAGINATION_QTY)); 
+        store.qty - store.books.length : 
+        PAGINATION_QTY,
+        )); 
     }
   };
+
+  React.useEffect(()=>{
+    if (store.books.length > 0) {
+      dispatch(firstSearch(
+        store.searchText,
+        sort,
+        filter
+        )); 
+    }
+  },[sort,filter]);
 
   const content = React.useMemo(
     () => {

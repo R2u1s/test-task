@@ -38,7 +38,6 @@ export const booksReducer = (state = initialState, action:any):any => {
       };
     }
     case FIRST_SEARCH_SUCCESS: {
-      console.log(action.data);
       return {
         ...state,
         searchText:action.text,
@@ -63,7 +62,6 @@ export const booksReducer = (state = initialState, action:any):any => {
       };
     }
     case NEXT_SEARCH_SUCCESS: {
-      console.log(action.data);
       return {
         ...state,
         books:[...state.books,...action.data.items],
