@@ -52,6 +52,7 @@
   color: white;
   font-size: 42px;
   font-weight: bold;
+  cursor: pointer;
 }
 
 ._search {

@@ -4,10 +4,12 @@ import {
   FIRST_SEARCH_FAILED,
   NEXT_SEARCH_REQUEST,
   NEXT_SEARCH_SUCCESS,
-  NEXT_SEARCH_FAILED
+  NEXT_SEARCH_FAILED,
+  CLEAR_STORE,
+  TBooksActions
  } from "../actions/books";
 
-export type TSearchState = {
+export type TBooksState = {
   searchText: string,
   books:Object[],
   qty:number
@@ -17,7 +19,7 @@ export type TSearchState = {
   nextSearchFailed: boolean,
 };
 
-const initialState: TSearchState = {
+const initialState: TBooksState = {
   searchText:'',
   books:[],
   qty:0,
@@ -27,7 +29,7 @@ const initialState: TSearchState = {
   nextSearchFailed: false,
 };
 
-export const booksReducer = (state = initialState, action:any):any => {
+export const booksReducer = (state = initialState, action:TBooksActions):TBooksState => {
   
   switch (action.type) {
 
@@ -76,6 +78,9 @@ export const booksReducer = (state = initialState, action:any):any => {
         nextSearchFailed: true,
         nextSearchRequest: false
       };
+    }
+    case CLEAR_STORE: {
+      return initialState;
     }
     default: {
       return state;
