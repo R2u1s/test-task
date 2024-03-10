@@ -14,7 +14,22 @@ export const Result: React.FC<{
   sort: SortStates,
 }> = ({ filter, sort }) => {
 
+  const [scroll, setScroll] = React.useState<any>(); //состояние, сохраняющее положение скролла
+
   const { isModalOpen, openModal, closeModal } = useModal();
+
+  //добавляем к колбэкам модального окна сохранение положения скролла
+  const onOpenModal = () => {
+    setScroll(window.scrollY);
+    openModal();
+  };
+
+  const onCloseModal = () => {
+    closeModal();
+    setTimeout(() => {
+      window.scrollTo(0, scroll); //если без таймаута, то почему-то по кнопке закрытия окна скролл вверху страницы
+  }, 50)                          //видимо вызывается ререндер, но почему - не пойму
+  };                              //вот здесь что-то есть https://dev.to/renegadedev/save-scroll-state-in-react-when-visiting-other-page-with-a-custom-hook-57nk
 
   const dispatch = useDispatch();
 
@@ -63,7 +78,7 @@ export const Result: React.FC<{
               <ul className={`${styles['_cardsList']}`}>
                 {store.books.length > 0 && store.books.map((item: any, index: number) => {
                   return <li key={index}>
-                    <Card book={item} openModal={openModal} />
+                    <Card book={item} openModal={onOpenModal} />
                   </li>
                 })}
               </ul>
@@ -80,7 +95,7 @@ export const Result: React.FC<{
   return (
     <>
       <section className={`${styles['_content']}`}>
-        {isModalOpen ? <Modal active={isModalOpen} setActive={openModal} setClose={closeModal}>
+        {isModalOpen ? <Modal active={isModalOpen} setClose={onCloseModal}>
           <p>Инфа о книге</p>
         </Modal> : <>{content}</>}
       </section>
