@@ -3,6 +3,13 @@ import { ThunkAction } from 'redux-thunk';
 import { Action, ActionCreator, Dispatch } from 'redux';
 import { TBooksActions } from '../services/actions/books';
 
+export interface TModal {
+  active: boolean;
+  setActive?: () => void;
+  setClose: () => void;
+  children?: React.ReactNode;
+}
+
 export type TBookCommon = {
   [key: string]: string | string[] | object[] | object;
 }

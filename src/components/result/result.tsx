@@ -6,11 +6,15 @@ import { Card } from '../card/card';
 import { firstSearch, nextSearch } from '../../services/actions/books';
 import { PAGINATION_QTY } from '../../constants/api';
 import { FilterStates, SortStates } from '../../types/enums';
+import { Modal } from '../modal/modal';
+import { useModal } from '../../hooks/useModal';
 
-export const Result: React.FC<{ 
+export const Result: React.FC<{
   filter: FilterStates,
   sort: SortStates,
-}> = ({ filter,sort }) => {
+}> = ({ filter, sort }) => {
+
+  const { isModalOpen, openModal, closeModal } = useModal();
 
   const dispatch = useDispatch();
 
@@ -29,24 +33,24 @@ export const Result: React.FC<{
       dispatch(nextSearch(
         store.searchText,
         sort,
-        filter, 
+        filter,
         store.books.length, // отправляем экшн с запросом к серверу. Тот же текст запроса берем из стора
         store.qty - store.books.length < PAGINATION_QTY ?       // два числа указываем для реализации пагинации
-        store.qty - store.books.length : 
-        PAGINATION_QTY,
-        )); 
+          store.qty - store.books.length :
+          PAGINATION_QTY,
+      ));
     }
   };
 
-  React.useEffect(()=>{
+  React.useEffect(() => {
     if (store.books.length > 0) {
       dispatch(firstSearch(
         store.searchText,
         sort,
         filter
-        )); 
+      ));
     }
-  },[sort,filter]);
+  }, [sort, filter]);
 
   const content = React.useMemo(
     () => {
@@ -59,24 +63,28 @@ export const Result: React.FC<{
               <ul className={`${styles['_cardsList']}`}>
                 {store.books.length > 0 && store.books.map((item: any, index: number) => {
                   return <li key={index}>
-                    <Card book={item} />
+                    <Card book={item} openModal={openModal} />
                   </li>
                 })}
               </ul>
               {(store.books.length < store.qty && !store.nextSearchFailed) && (store.nextSearchRequest ? <Loader /> :
-              //не показываем кнопку если уже отображены все книги или от сервера пришла ошибка. Крутим лоадер во время запроса
+                //не показываем кнопку если уже отображены все книги или от сервера пришла ошибка. Крутим лоадер во время запроса
                 store.firstSearchFailed ? 'Ошибка соединения с сервером' :
                   <p className={'text text_type_underline text_color_gray text_link'} onClick={onLoadMoreClick}>Load more</p>)}
             </>
       )
     },
-    [store.books,store.firstSearchRequest,store.firstSearchFailed,store.nextSearchRequest]
+    [store.books, store.firstSearchRequest, store.firstSearchFailed, store.nextSearchRequest]
   );
 
   return (
-    <section className={`${styles['_content']}`}>
-      {content}
-    </section>
+    <>
+      <section className={`${styles['_content']}`}>
+        {isModalOpen ? <Modal active={isModalOpen} setActive={openModal} setClose={closeModal}>
+          <p>Инфа о книге</p>
+        </Modal> : <>{content}</>}
+      </section>
+    </>
   );
 }
 

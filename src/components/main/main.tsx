@@ -12,9 +12,9 @@ export const Main: React.FC = () => {
   const [sort, setSort] = React.useState<SortStates>(SortStates.Default); //состояние, хранящие значение выбранной сортировки
 
   return (
-    <main className={`${styles['_content']}`}>
-      <Head setResultIsActive={setResultIsActive} setFilter={setFilter} setSort={setSort} sort={sort} filter={filter} />
-      {resultIsActive && <Result filter={filter} sort={sort} />}
-    </main>
-  ); 
+      <main className={`${styles['_content']}`}>
+        <Head setResultIsActive={setResultIsActive} setFilter={setFilter} setSort={setSort} sort={sort} filter={filter} />
+        {resultIsActive && <Result filter={filter} sort={sort} />}
+      </main>
+  );
 }

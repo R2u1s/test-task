@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './card.module.css';
 import { TBookInfo } from '../../types/types';
 
-export const Card: React.FC<{ book: TBookInfo }> = ({ book }) => {
+export const Card: React.FC<{ book: TBookInfo, openModal: () => void }> = ({ book, openModal }) => {
 
   const picture = book.volumeInfo?.imageLinks?.smallThumbnail ? book.volumeInfo?.imageLinks?.smallThumbnail : 'Нет изображения';
   const categories = book.volumeInfo?.categories ? book.volumeInfo?.categories.join(', ') : 'Категории не заданы';
@@ -11,7 +11,11 @@ export const Card: React.FC<{ book: TBookInfo }> = ({ book }) => {
 
   return (
     <>
-      <div className={`${styles['_content']}`}>
+      <div
+        className={`${styles['_content']}`}
+        onClick={() => {
+          openModal()
+        }}>
         <div className={`${styles['_picture-padding']}`}>
           <img src={picture} className={`${styles['_picture']}`} />
         </div>
