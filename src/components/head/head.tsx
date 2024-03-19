@@ -1,12 +1,10 @@
 import React from 'react';
-import { useEffect } from 'react';
-import { useSelector, useDispatch } from '../../services/hooks';
+import { useDispatch } from '../../services/hooks';
 import { Input, Select } from 'antd';
 import styles from './head.module.css';
 import { DELAY_RESULT_SHOW } from '../../constants/delays';
 import { clearStore, firstSearch } from '../../services/actions/books';
 import { FilterStates, SortStates } from '../../types/enums';
-import { getByPlaceholderText } from '@testing-library/react';
 
 export const Head: React.FC<{ 
   setResultIsActive: (value: boolean) => void,

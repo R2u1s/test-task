@@ -1,8 +1,12 @@
 import React from 'react';
 import styles from './card.module.css';
 import { TBookInfo } from '../../types/types';
+import { useDispatch } from '../../services/hooks';
+import { writeBookInfo } from '../../services/actions/books';
 
 export const Card: React.FC<{ book: TBookInfo, openModal: () => void }> = ({ book, openModal }) => {
+
+  const dispatch = useDispatch();
 
   const picture = book.volumeInfo?.imageLinks?.smallThumbnail ? book.volumeInfo?.imageLinks?.smallThumbnail : 'Нет изображения';
   const categories = book.volumeInfo?.categories ? book.volumeInfo?.categories.join(', ') : 'Категории не заданы';
@@ -14,7 +18,8 @@ export const Card: React.FC<{ book: TBookInfo, openModal: () => void }> = ({ boo
       <div
         className={`${styles['_content']}`}
         onClick={() => {
-          openModal()
+          openModal();
+          dispatch(writeBookInfo(book)); //записываем инфо о книге в хранилище, чтобы открыть в отдельном окне
         }}>
         <div className={`${styles['_picture-padding']}`}>
           <img src={picture} className={`${styles['_picture']}`} />

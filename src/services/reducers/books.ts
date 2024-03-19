@@ -1,3 +1,4 @@
+import { TBookInfo } from "../../types/types";
 import { 
   FIRST_SEARCH_REQUEST,
   FIRST_SEARCH_SUCCESS,
@@ -6,13 +7,16 @@ import {
   NEXT_SEARCH_SUCCESS,
   NEXT_SEARCH_FAILED,
   CLEAR_STORE,
-  TBooksActions
+  TBooksActions,
+  WRITE_BOOKINFO,
+  CLEAR_BOOKINFO
  } from "../actions/books";
 
 export type TBooksState = {
   searchText: string,
   books:Object[],
-  qty:number
+  qty:number,
+  current:TBookInfo,
   firstSearchRequest: boolean,
   firstSearchFailed: boolean,
   nextSearchRequest: boolean,
@@ -23,6 +27,7 @@ const initialState: TBooksState = {
   searchText:'',
   books:[],
   qty:0,
+  current:{},
   firstSearchRequest: false,
   firstSearchFailed: false,
   nextSearchRequest:false,
@@ -78,6 +83,12 @@ export const booksReducer = (state = initialState, action:TBooksActions):TBooksS
         nextSearchFailed: true,
         nextSearchRequest: false
       };
+    }
+    case WRITE_BOOKINFO: {
+      return { ...state, current: action.currentBook };
+    }
+    case CLEAR_BOOKINFO:{
+      return { ...state, current: {} };
     }
     case CLEAR_STORE: {
       return initialState;

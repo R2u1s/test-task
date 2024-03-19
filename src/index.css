@@ -47,6 +47,8 @@ code {
 
   --card-width: 230px;
   --card-height: 370px;
+
+  --info-height: 640px;
 }
 
 @-moz-document url-prefix() {
@@ -85,6 +87,13 @@ code {
   overflow: hidden;
 }
 
+.text_overflow {
+  -webkit-line-clamp: 10;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
 .text_color_h1 {
   color: var(--text-color-h1);
 }
@@ -100,7 +109,7 @@ code {
 .text_type_default {
 	font-family: 'Segoe UI';
 	font-size: 16px;
-	line-height: 1.1;
+	line-height: 1.3;
 	font-weight: normal;
 }
 
@@ -108,18 +117,29 @@ code {
 	font-family: 'Segoe UI';
 	font-size: 16px;
 	font-weight: bold;
-	line-height: 1.1;
+	line-height: 1.3;
+}
+
+.text_type_large_bold {
+	font-family: 'Segoe UI';
+	font-size: 24px;
+	font-weight: bold;
+	line-height: 1.3;
 }
 
 .text_type_underline {
 	font-family: 'Segoe UI';
 	font-size: 16px;
-	line-height: 1.1;
+	line-height: 1.3;
   text-decoration: underline;
 }
 
 .text_link {
   cursor: pointer;
+}
+
+.margin-top_15 {
+  margin-top: 15px;
 }
 
 .noselect {

@@ -1,5 +1,5 @@
 import { MY_API_KEY } from "../../constants/api";
-import { AppDispatch } from "../../types/types";
+import { AppDispatch, TBookInfo } from "../../types/types";
 import { request } from "../../utils/utils";
 import { PAGINATION_QTY } from "../../constants/api";
 import { FilterStates } from "../../types/enums";
@@ -12,6 +12,9 @@ export const NEXT_SEARCH_REQUEST: 'NEXT_SEARCH_REQUEST' = 'NEXT_SEARCH_REQUEST';
 export const NEXT_SEARCH_SUCCESS: 'NEXT_SEARCH_SUCCESS' = 'NEXT_SEARCH_SUCCESS';
 export const NEXT_SEARCH_FAILED: 'NEXT_SEARCH_FAILED' = 'NEXT_SEARCH_FAILED';
 
+export const WRITE_BOOKINFO: 'WRITE_BOOKINFO' = 'WRITE_BOOKINFO';
+export const CLEAR_BOOKINFO: 'CLEAR_BOOKINFO' = 'CLEAR_BOOKINFO';
+
 export const CLEAR_STORE: 'CLEAR_STORE' = 'CLEAR_STORE';
 
 export type TBooksActions =
@@ -21,6 +24,8 @@ export type TBooksActions =
   | INextSearchErrorAction
   | INextSearchRequestAction
   | INextSearchSuccessAction
+  | IWriteBookInfoAction
+  | IClearBookInfoAction
   | IClearStoreAction
 
 export interface IFirstSearchRequestAction { readonly type: typeof FIRST_SEARCH_REQUEST }
@@ -49,6 +54,13 @@ export interface INextSearchSuccessAction {
   }
 }
 export interface INextSearchErrorAction { readonly type: typeof NEXT_SEARCH_FAILED }
+
+export interface IWriteBookInfoAction {
+  readonly type: typeof WRITE_BOOKINFO,
+  readonly currentBook: TBookInfo
+}
+export interface IClearBookInfoAction { readonly type: typeof CLEAR_BOOKINFO }
+
 export interface IClearStoreAction { readonly type: typeof CLEAR_STORE }
 
 export const firstSearch = (value: string, orderBy: string, filter: string) => { //первый запрос к серверу. Загружаем в хранилище первые книги
@@ -116,6 +128,15 @@ export const nextSearch = (value: string, orderBy: string, filter: string, start
   };
 }
 
+//записываем инфо о просматриваемой книге в хранилище
+export const writeBookInfo = (book:TBookInfo) => ({
+  type: WRITE_BOOKINFO,
+  currentBook: book
+});
+//очищаем инфо о просматриваемой книге в хранилище
+export const clearBookInfo = () => ({
+  type: CLEAR_BOOKINFO
+});
 //очищаем хранилище
 export const clearStore = () => ({
   type: CLEAR_STORE,

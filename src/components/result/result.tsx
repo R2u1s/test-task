@@ -8,11 +8,15 @@ import { PAGINATION_QTY } from '../../constants/api';
 import { FilterStates, SortStates } from '../../types/enums';
 import { Modal } from '../modal/modal';
 import { useModal } from '../../hooks/useModal';
+import { Info } from '../info/info';
+import { clearBookInfo } from '../../services/actions/books';
 
 export const Result: React.FC<{
   filter: FilterStates,
   sort: SortStates,
 }> = ({ filter, sort }) => {
+  
+  const dispatch = useDispatch();
 
   const [scroll, setScroll] = React.useState<any>(); //состояние, сохраняющее положение скролла
 
@@ -26,12 +30,11 @@ export const Result: React.FC<{
 
   const onCloseModal = () => {
     closeModal();
+    dispatch(clearBookInfo());
     setTimeout(() => {
       window.scrollTo(0, scroll); //если без таймаута, то почему-то по кнопке закрытия окна скролл вверху страницы
-  }, 50)                          //видимо вызывается ререндер, но почему - не пойму
+    }, 50)                          //видимо вызывается ререндер, но почему - не пойму
   };                              //вот здесь что-то есть https://dev.to/renegadedev/save-scroll-state-in-react-when-visiting-other-page-with-a-custom-hook-57nk
-
-  const dispatch = useDispatch();
 
   const store = useSelector((store) => ({
     searchText: store.books.searchText,
@@ -74,7 +77,7 @@ export const Result: React.FC<{
           //если поиск удачный, то показываем его, иначе крутим лоадер.
           store.firstSearchFailed ? 'Ошибка соединения с сервером' :
             <>
-              <p className={'text text_type_bold text_color_black'}>Found {store.qty} results</p>
+              <p className={'text text_type_bold text_color_black margin-top_15'}>Found {store.qty} results</p>
               <ul className={`${styles['_cardsList']}`}>
                 {store.books.length > 0 && store.books.map((item: any, index: number) => {
                   return <li key={index}>
@@ -95,9 +98,10 @@ export const Result: React.FC<{
   return (
     <>
       <section className={`${styles['_content']}`}>
-        {isModalOpen ? <Modal active={isModalOpen} setClose={onCloseModal}>
-          <p>Инфа о книге</p>
-        </Modal> : <>{content}</>}
+        {isModalOpen ?
+          <Modal active={isModalOpen} setClose={onCloseModal}><Info setClose={onCloseModal}/></Modal>
+          :
+          <>{content}</>}
       </section>
     </>
   );

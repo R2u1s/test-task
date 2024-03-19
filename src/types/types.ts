@@ -27,6 +27,7 @@ export type TBookInfo = TBookCommon & {
       "large": string;
       "extraLarge": string
     },
+    'description':string,
     [key: string]: string | string[] | object[] | object | number;
   };
 }
