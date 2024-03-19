@@ -1,7 +1,8 @@
 ._info {
-  margin: 0;
+  margin: 0 auto;
   display: flex;
   flex-flow: row;
+  max-width: 1024px;
 }
 
 ._info-picture {
