@@ -11,8 +11,9 @@ export const Head: React.FC<{
   setFilter: (value:FilterStates)=>void,
   setSort: (value:SortStates)=>void,
   sort: SortStates,
-  filter: FilterStates
-}> = ({ setResultIsActive, setFilter, setSort, sort, filter }) => {
+  filter: FilterStates,
+  onCloseModal:()=>void;
+}> = ({ setResultIsActive, setFilter, setSort, sort, filter,onCloseModal }) => {
 
   const { Search } = Input;
 
@@ -30,6 +31,7 @@ export const Head: React.FC<{
       setTimeout(() => {       // а потом с задержкой отображаем резульатат, иначе будет появляться скролл на мгновение, ведь головная часть занимает всю высоту окна сначала, а результат под ней
         setResultIsActive(true);
       }, DELAY_RESULT_SHOW);
+      onCloseModal();
     }
   };
 

@@ -14,13 +14,14 @@ import { clearBookInfo } from '../../services/actions/books';
 export const Result: React.FC<{
   filter: FilterStates,
   sort: SortStates,
-}> = ({ filter, sort }) => {
-  
+  isModalOpen: boolean,
+  openModal: () => void,
+  closeModal: () => void
+}> = ({ filter, sort, isModalOpen, openModal, closeModal }) => {
+
   const dispatch = useDispatch();
 
   const [scroll, setScroll] = React.useState<any>(); //состояние, сохраняющее положение скролла
-
-  const { isModalOpen, openModal, closeModal } = useModal();
 
   //добавляем к колбэкам модального окна сохранение положения скролла
   const onOpenModal = () => {
@@ -47,17 +48,15 @@ export const Result: React.FC<{
   }));
 
   const onLoadMoreClick = () => {
-    if (true) {   // если 
-      dispatch(nextSearch(
-        store.searchText,
-        sort,
-        filter,
-        store.books.length, // отправляем экшн с запросом к серверу. Тот же текст запроса берем из стора
-        store.qty - store.books.length < PAGINATION_QTY ?       // два числа указываем для реализации пагинации
-          store.qty - store.books.length :
-          PAGINATION_QTY,
-      ));
-    }
+    dispatch(nextSearch(
+      store.searchText,
+      sort,
+      filter,
+      store.books.length, // отправляем экшн с запросом к серверу. Тот же текст запроса берем из стора
+      store.qty - store.books.length < PAGINATION_QTY ?       // два числа указываем для реализации пагинации
+        store.qty - store.books.length :
+        PAGINATION_QTY,
+    ));
   };
 
   React.useEffect(() => {
@@ -99,7 +98,7 @@ export const Result: React.FC<{
     <>
       <section className={`${styles['_content']}`}>
         {isModalOpen ?
-          <Modal active={isModalOpen} setClose={onCloseModal}><Info setClose={onCloseModal}/></Modal>
+          <Modal active={isModalOpen} setClose={onCloseModal}><Info setClose={onCloseModal} /></Modal>
           :
           <>{content}</>}
       </section>
