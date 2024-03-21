@@ -7,7 +7,6 @@ import { firstSearch, nextSearch } from '../../services/actions/books';
 import { PAGINATION_QTY } from '../../constants/api';
 import { FilterStates, SortStates } from '../../types/enums';
 import { Modal } from '../modal/modal';
-import { useModal } from '../../hooks/useModal';
 import { Info } from '../info/info';
 import { clearBookInfo } from '../../services/actions/books';
 
@@ -34,6 +33,7 @@ export const Result: React.FC<{
     dispatch(clearBookInfo());
     setTimeout(() => {
       window.scrollTo(0, scroll); //если без таймаута, то почему-то по кнопке закрытия окна скролл вверху страницы
+      setScroll(0);
     }, 50)                          //видимо вызывается ререндер, но почему - не пойму
   };                              //вот здесь что-то есть https://dev.to/renegadedev/save-scroll-state-in-react-when-visiting-other-page-with-a-custom-hook-57nk
 
