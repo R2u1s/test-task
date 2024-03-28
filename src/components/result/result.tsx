@@ -9,6 +9,7 @@ import { FilterStates, SortStates } from '../../types/enums';
 import { Modal } from '../modal/modal';
 import { Info } from '../info/info';
 import { clearBookInfo } from '../../services/actions/books';
+import { TBooksState } from '../../services/reducers/books';
 
 export const Result: React.FC<{
   filter: FilterStates,
@@ -37,7 +38,7 @@ export const Result: React.FC<{
     }, 50)                          //видимо вызывается ререндер, но почему - не пойму
   };                              //вот здесь что-то есть https://dev.to/renegadedev/save-scroll-state-in-react-when-visiting-other-page-with-a-custom-hook-57nk
 
-  const store = useSelector((store) => ({
+  const getData = (store:any) => ({
     searchText: store.books.searchText,
     books: store.books.books,
     qty: store.books.qty,
@@ -45,24 +46,34 @@ export const Result: React.FC<{
     firstSearchFailed: store.books.firstSearchFailed,
     nextSearchRequest: store.books.nextSearchRequest,
     nextSearchFailed: store.books.nextSearchFailed,
-  }));
+  });
+
+  const { 
+    searchText,
+    books,
+    qty,
+    firstSearchRequest,
+    firstSearchFailed,
+    nextSearchRequest,
+    nextSearchFailed,
+  } = useSelector(getData);
 
   const onLoadMoreClick = () => {
     dispatch(nextSearch(
-      store.searchText,
+      searchText,
       sort,
       filter,
-      store.books.length, // отправляем экшн с запросом к серверу. Тот же текст запроса берем из стора
-      store.qty - store.books.length < PAGINATION_QTY ?       // два числа указываем для реализации пагинации
-        store.qty - store.books.length :
+      books.length, // отправляем экшн с запросом к серверу. Тот же текст запроса берем из стора
+      qty - books.length < PAGINATION_QTY ?       // два числа указываем для реализации пагинации
+        qty - books.length :
         PAGINATION_QTY,
     ));
   };
 
   React.useEffect(() => {
-    if (store.books.length > 0) {
+    if (books.length > 0) {
       dispatch(firstSearch(
-        store.searchText,
+        searchText,
         sort,
         filter
       ));
@@ -72,26 +83,26 @@ export const Result: React.FC<{
   const content = React.useMemo(
     () => {
       return (
-        store.firstSearchRequest ? <Loader /> :
+        firstSearchRequest ? <Loader /> :
           //если поиск удачный, то показываем его, иначе крутим лоадер.
-          store.firstSearchFailed ? 'Ошибка соединения с сервером' :
+          firstSearchFailed ? 'Ошибка соединения с сервером' :
             <>
-              <p className={'text text_type_bold text_color_black margin-top_15'}>Found {store.qty} results</p>
+              <p className={'text text_type_bold text_color_black margin-top_15'}>Found {qty} results</p>
               <ul className={`${styles['_cardsList']}`}>
-                {store.books.length > 0 && store.books.map((item: any, index: number) => {
+                {books.length > 0 && books.map((item: any, index: number) => {
                   return <li key={index}>
                     <Card book={item} openModal={onOpenModal} />
                   </li>
                 })}
               </ul>
-              {(store.books.length < store.qty && !store.nextSearchFailed) && (store.nextSearchRequest ? <Loader /> :
+              {(books.length < qty && !nextSearchFailed) && (nextSearchRequest ? <Loader /> :
                 //не показываем кнопку если уже отображены все книги или от сервера пришла ошибка. Крутим лоадер во время запроса
-                store.firstSearchFailed ? 'Ошибка соединения с сервером' :
+                firstSearchFailed ? 'Ошибка соединения с сервером' :
                   <p className={'text text_type_underline text_color_gray text_link'} onClick={onLoadMoreClick}>Load more</p>)}
             </>
       )
     },
-    [store.books, store.firstSearchRequest, store.firstSearchFailed, store.nextSearchRequest]
+    [books, firstSearchRequest, firstSearchFailed, nextSearchRequest]
   );
 
   return (
