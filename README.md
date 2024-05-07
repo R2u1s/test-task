@@ -1,5 +1,5 @@
 # Book Search
-Поисковик по книгам [Перейти на сайт](http://booksearch.site/) 
+Поисковик по книгам [Перейти на сайт](https://r2u1s.github.io/book-search/) 
 
 ![screenshot](https://github.com/R2u1s/book-search/blob/main/src/images/gh-pages1.JPG)
 ## Технологии
