@@ -1,101 +1,57 @@
-._info {
-  margin: 0 auto;
+._content {
+  margin: 0;
+  padding: 0;
+  width: 452px;
+  height: 420px;
+  background-color: white;
+  display: flex;
+  flex-flow: column;
+  justify-content: start;
+  align-items: start;
+  gap:40px;
+}
+
+._name {
+  margin: 0;
+  text-align: start;
+}
+
+._contacts-field {
+  display: flex;
+  flex-flow: column;
+  gap:14px;
+}
+
+._phone {
+  grid-area: phone;
+  margin: 0;
+  text-align: center;
+}
+
+._mail {
+  grid-area: mail;
+  margin: 0;
+  text-align: center;
+}
+
+._icon {
+  width: 24px;
+  height: 24px;
+}
+
+._contact {
   display: flex;
   flex-flow: row;
-  max-width: 1024px;
+  gap: 14px;
+  justify-content: flex-start;
 }
 
-._info-picture {
-  margin: 0;
-  width:50%;
-  box-shadow: 5px 5px 20px rgb(110, 110, 110);
+._contact-title {
+  min-width: 160px;
 }
 
-._info-picture-padding {
-  margin:0;
+._additional-info {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  min-width: 420px;
-  background-color: rgb(243,242,241);
-  aspect-ratio: 1;
-}
-
-._info-text {
-  margin:0 35px;
-  margin-top: 25px;
-  max-height: 420px;
-  width:70%;
-  display: grid;
-  grid-template:
-    'category' 
-    '.' 25px
-    'title'
-    '.' 5px
-    'author'
-    '.' 25px
-    'description' max-content
-    '.' 35px
-    'close-button'
-    / 100%;
-  text-align: start;
-  align-content: start;
-}
-
-._info__category {
-  margin:0;
-  max-height: 32px;
-  grid-area: category;
-}
-
-
-._info__title {
-  margin:0;
-  max-height: 64px;
-  grid-area: title;
-}
-
-._info__author {
-  margin:0;
-  max-height: 32px;
-  grid-area: author;
-}
-
-._info__description {
-  margin:0;
-  max-height: 220px;
-  grid-area: description;
-}
-
-._close-button {
-  grid-area: close-button;
-  background-color: inherit;
-  margin:0;
-  padding: 0;
-  border: none;
-  cursor: pointer;
-  text-align: start;
-  text-decoration: underline;
-}
-
-@media screen and (max-width: 1024px) {
-  ._info-picture-padding {
-    min-width: calc((25/131)*100vw + 29420px/131);
-  }
-}
-
-@media screen and (max-width: 768px) {
-  ._info {
-    flex-flow: column;
-  }
-
-  ._info-picture-padding {
-    margin: 0 auto;
-    max-width: 320px;
-  }
-
-  ._info-text {
-    margin: 0 auto;
-    margin-top: 25px;
-  }
+  flex-flow: column;
+  gap:12px;
 }

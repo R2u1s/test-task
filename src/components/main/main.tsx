@@ -1,41 +1,58 @@
 import React from 'react';
 import styles from './main.module.css';
-import Head from "../head/head";
+import { Input } from 'antd';
 import { Result } from "../result/result";
-import { FilterStates, SortStates } from '../../types/enums';
 import { useModal } from '../../hooks/useModal';
 import { useDispatch } from '../../services/hooks';
-import { clearBookInfo } from '../../services/actions/books';
+import { Modal } from '../modal/modal';
+import { Info } from '../info/info';
+import { clearPersonInfo } from '../../services/actions/persons';
 
 export const Main: React.FC = () => {
 
   const dispatch = useDispatch();
 
-  const [resultIsActive, setResultIsActive] = React.useState<boolean>(false); //состояние, описывающее надо ли показывать результат
+  const { Search } = Input;
 
-  const [filter, setFilter] = React.useState<FilterStates>(FilterStates.Default); //состояние, хранящие значение выбранного фильтра
-  const [sort, setSort] = React.useState<SortStates>(SortStates.Default); //состояние, хранящие значение выбранной сортировки
+  const [valueInput, setValueInput] = React.useState<string>('');
+  const [scroll, setScroll] = React.useState<any>(); //состояние, сохраняющее положение скролла
 
+  const onSearchClick = () => {
+  };
 
   const { isModalOpen, openModal, closeModal } = useModal();
 
+  //добавляем к колбэкам модального окна сохранение положения скролла
+  const onOpenModal = () => {
+    setScroll(window.scrollY);
+    openModal();
+    console.log();
+  };
+
+  const onCloseModal = () => {
+    closeModal();
+    setTimeout(() => {
+      window.scrollTo(0, scroll); //если без таймаута, то почему-то по кнопке закрытия окна скролл вверху страницы
+      setScroll(0);
+      dispatch(clearPersonInfo());
+    }, 300)                       //видимо вызывается ререндер, но почему - не пойму
+  };                              //вот здесь что-то есть https://dev.to/renegadedev/save-scroll-state-in-react-when-visiting-other-page-with-a-custom-hook-57nk
+
   return (
     <main className={`${styles['_content']}`}>
-      <Head
-        setResultIsActive={setResultIsActive}
-        setFilter={setFilter}
-        setSort={setSort}
-        sort={sort}
-        filter={filter}
-        onCloseModal={closeModal}
+      <Search
+        className={`${styles['_search']}`}
+        placeholder="Введите имя"
+        onSearch={onSearchClick}
+        onChange={e => setValueInput(e.target.value)}
+        value={valueInput}
+        size={'large'}
       />
-      {resultIsActive && <Result
-       filter={filter} 
-       sort={sort}
-       isModalOpen={isModalOpen} 
-       openModal={openModal}
-       closeModal={closeModal}
-       />}
+      <Result
+        value={valueInput}
+        onOpenModal={onOpenModal}
+      />
+      <Modal active={isModalOpen} setClose={onCloseModal}><Info /></Modal>
     </main>
   );
 }

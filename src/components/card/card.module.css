@@ -1,48 +1,51 @@
 ._content {
   margin: 0;
-  padding: 15px;
+  padding: 24px;
   box-sizing: border-box;
   width: var(--card-width);
   height: var(--card-height);
-  background-color: rgb(243,242,241);
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  gap:5px;
+  background-color: white;
+  display: grid;
+  grid-template:
+    'name' min-content
+    '.' 26px
+    'phone' min-content
+    '.' 14px
+    'mail' min-content
+    / 100%;
   cursor: pointer;
+  border-radius: 16px;
+  box-shadow: 0px 0px 20px 0px #0000001A;
 }
 
-._picture {
+._name {
+  grid-area: name;
   margin: 0;
-  max-height: 187px;
-  content:'';
-  box-sizing: border-box;
-  box-shadow: 5px 5px 20px rgb(110, 110, 110);
+  text-align: start;
 }
 
-._picture-padding {
-  margin-top: 10px;
-  margin-bottom: 20px;
+._phone {
+  grid-area: phone;
+  margin: 0;
+  text-align: center;
+}
+
+._mail {
+  grid-area: mail;
+  margin: 0;
+  text-align: center;
+}
+
+._icon {
+  width: 24px;
+  height: 24px;
+}
+
+._contact {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  aspect-ratio: 1;
-}
-
-._category {
-  margin: 0;
-  text-align: start;
-}
-
-._title {
-  margin: 0;
-  text-align: start;
-}
-
-._authors {
-  margin: 0;
-  text-align: start;
+  flex-flow: row;
+  gap: 14px;
+  justify-content: flex-start;
 }
 
 

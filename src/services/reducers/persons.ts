@@ -1,4 +1,5 @@
-import { TBookInfo } from "../../types/types";
+import { personInfoEmptyMock } from "../../constants/mock";
+import { TPersonInfo } from "../../types/types";
 import { 
   FIRST_SEARCH_REQUEST,
   FIRST_SEARCH_SUCCESS,
@@ -7,34 +8,32 @@ import {
   NEXT_SEARCH_SUCCESS,
   NEXT_SEARCH_FAILED,
   CLEAR_STORE,
-  TBooksActions,
-  WRITE_BOOKINFO,
-  CLEAR_BOOKINFO
- } from "../actions/books";
+  TPersonsActions,
+  WRITE_PERSONINFO,
+  CLEAR_PERSONINFO
+ } from "../actions/persons";
 
-export type TBooksState = {
-  searchText: string,
-  books:Object[],
+export type TPersonsState = {
+  persons:Object[],
   qty:number,
-  current:TBookInfo,
+  current:TPersonInfo,
   firstSearchRequest: boolean,
   firstSearchFailed: boolean,
   nextSearchRequest: boolean,
   nextSearchFailed: boolean,
 };
 
-const initialState: TBooksState = {
-  searchText:'',
-  books:[],
+const initialState: TPersonsState = {
+  persons:[],
   qty:0,
-  current:{},
+  current: personInfoEmptyMock,
   firstSearchRequest: false,
   firstSearchFailed: false,
   nextSearchRequest:false,
   nextSearchFailed: false,
 };
 
-export const booksReducer = (state = initialState, action:TBooksActions):TBooksState => {
+export const personsReducer = (state = initialState, action:TPersonsActions):TPersonsState => {
   
   switch (action.type) {
 
@@ -47,9 +46,8 @@ export const booksReducer = (state = initialState, action:TBooksActions):TBooksS
     case FIRST_SEARCH_SUCCESS: {
       return {
         ...state,
-        searchText:action.text,
-        books:action.data.items,
-        qty:action.data.totalItems,
+        persons:action.data,
+        qty:action.data.length,
         
         firstSearchFailed: false,
         firstSearchRequest: false
@@ -71,7 +69,7 @@ export const booksReducer = (state = initialState, action:TBooksActions):TBooksS
     case NEXT_SEARCH_SUCCESS: {
       return {
         ...state,
-        books:[...state.books,...action.data.items],
+        persons:action.data,
         
         nextSearchFailed: false,
         nextSearchRequest: false
@@ -84,11 +82,11 @@ export const booksReducer = (state = initialState, action:TBooksActions):TBooksS
         nextSearchRequest: false
       };
     }
-    case WRITE_BOOKINFO: {
-      return { ...state, current: action.currentBook };
+    case WRITE_PERSONINFO: {
+      return { ...state, current: action.currentPerson };
     }
-    case CLEAR_BOOKINFO:{
-      return { ...state, current: {} };
+    case CLEAR_PERSONINFO:{
+      return { ...state, current: personInfoEmptyMock };
     }
     case CLEAR_STORE: {
       return initialState;

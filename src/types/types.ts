@@ -1,7 +1,7 @@
 import { store } from '../index';
 import { ThunkAction } from 'redux-thunk';
-import { Action, ActionCreator, Dispatch } from 'redux';
-import { TBooksActions } from '../services/actions/books';
+import { Action, ActionCreator, Dispatch, EmptyObject } from 'redux';
+import { TPersonsActions } from '../services/actions/persons';
 
 export interface TModal {
   active: boolean;
@@ -10,32 +10,20 @@ export interface TModal {
   children?: React.ReactNode;
 }
 
-export type TBookCommon = {
-  [key: string]: string | string[] | object[] | object;
-}
-
-export type TBookInfo = TBookCommon & {
-  'volumeInfo'?: {
-    'title': string;
-    'authors': string[];
-    'categories': string[];
-    'imageLinks': {
-      "smallThumbnail": string;
-      "thumbnail": string;
-      "small": string;
-      "medium": string;
-      "large": string;
-      "extraLarge": string
-    },
-    'description':string,
-    [key: string]: string | string[] | object[] | object | number;
-  };
-}
+export type TPersonInfo = {
+  name: string,
+  phone: string,
+  email: string,
+  hire_date: string,
+  position_name: string,
+  department: string,
+  address: string
+};
 
 export type RootState = ReturnType<typeof store.getState>;
 
 // Типизация всех экшенов приложения
-type TApplicationActions = TBooksActions;
+type TApplicationActions = TPersonsActions;
 
 // Типизация thunk в приложении
 export type AppThunk<TReturn = void> = ActionCreator<

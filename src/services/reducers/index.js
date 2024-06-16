@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
-import { booksReducer } from './books';
+import { personsReducer } from './persons';
 
 // Корневой редьюсер
 export const rootReducer = combineReducers({
-    books: booksReducer,
+    persons: personsReducer,
 }) 

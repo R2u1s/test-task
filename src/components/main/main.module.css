@@ -1,5 +1,18 @@
 ._content {
   margin: 0;
+  padding: 64px 10px 10px 10px;
   width: 100%;
   height:100%;
+  display:flex;
+  flex-flow: column;
+  gap: 32px;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+._search {
+  margin: 0;
+  width: 90%;
+  max-width: 1120px;
+  min-width: 320px;
 }
