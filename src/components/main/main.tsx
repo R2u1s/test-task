@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './main.module.css';
-import { Input } from 'antd';
+import { Search } from '../search/search';
 import { Result } from "../result/result";
 import { useModal } from '../../hooks/useModal';
 import { useDispatch } from '../../services/hooks';
@@ -12,14 +12,8 @@ export const Main: React.FC = () => {
 
   const dispatch = useDispatch();
 
-  const { Search } = Input;
-
   const [valueInput, setValueInput] = React.useState<string>('');
   const [scroll, setScroll] = React.useState<any>(); //состояние, сохраняющее положение скролла
-
-  const onSearchClick = () => {
-  };
-
   const { isModalOpen, openModal, closeModal } = useModal();
 
   //добавляем к колбэкам модального окна сохранение положения скролла
@@ -41,12 +35,7 @@ export const Main: React.FC = () => {
   return (
     <main className={`${styles['_content']}`}>
       <Search
-        className={`${styles['_search']}`}
-        placeholder="Введите имя"
-        onSearch={onSearchClick}
-        onChange={e => setValueInput(e.target.value)}
-        value={valueInput}
-        size={'large'}
+        onChange={setValueInput}
       />
       <Result
         value={valueInput}

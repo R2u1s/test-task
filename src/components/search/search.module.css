@@ -1,0 +1,29 @@
+.search__form {
+  margin: 0;
+  width: 90%;
+  height: 48px;
+  max-width: 1120px;
+  min-width: 320px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border: 1px solid #D4DEFE;
+  border-radius: 24px;
+  position: relative;
+}
+
+.search__input {
+  margin: 0;
+  padding-left: 24px;
+  width:100%;
+  border: none;
+  border-radius: 24px;
+}
+
+.search__icon {
+  position: absolute;
+  margin:0;
+  top: 12px;
+  right: 24px;
+  align-items: center;
+}
